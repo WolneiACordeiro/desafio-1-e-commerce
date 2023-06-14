@@ -59,6 +59,7 @@ public class Connect {
         ResultSet resultSet = null;
         if (connectDatabase()) {
             try {
+                statement = connection.createStatement();
                 resultSet = statement.executeQuery(sql);
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Error executing SQL query: " + ex);
