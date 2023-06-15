@@ -1,6 +1,6 @@
-package e_commerce.Model;
+package e_commerce.Controller;
 
-import e_commerce.Controller.Connect;
+import e_commerce.Model.Connect;
 
 import javax.swing.*;
 

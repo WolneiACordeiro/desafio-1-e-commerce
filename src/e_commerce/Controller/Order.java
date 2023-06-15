@@ -1,4 +1,4 @@
-package e_commerce.Model;
+package e_commerce.Controller;
 
 import java.util.List;
 

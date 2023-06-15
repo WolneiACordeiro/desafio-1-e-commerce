@@ -1,4 +1,4 @@
-package e_commerce.Controller;
+package e_commerce.Model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

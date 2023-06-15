@@ -1,6 +1,6 @@
-package e_commerce.Model;
+package e_commerce.Controller;
 
-import e_commerce.Controller.Connect;
+import e_commerce.Model.Connect;
 
 import javax.swing.*;
 import java.sql.ResultSet;
@@ -67,29 +67,25 @@ public class Product {
             out.print("Selecione uma opção: ");
             option = Integer.parseInt(scanner.nextLine());
             switch (option) {
-                case 1:
+                case 1 -> {
                     out.println("#############| Cadastrar Produto Selecionado |#############");
                     this.createProduct();
-                    break;
-                case 2:
+                }
+                case 2 -> {
                     out.println("#############| Alterar Produto Selecionado |#############");
                     this.alterProduct();
-                    break;
-                case 3:
+                }
+                case 3 -> {
                     out.println("#############| Remover Produto Selecionado |#############");
                     this.removeProduct();
-                    break;
-                case 0:
-                    out.println("Voltar");
-                    break;
-                default:
-                    out.println("Opção inválida!");
-                    break;
+                }
+                case 0 -> out.println("Voltar");
+                default -> out.println("Opção inválida!");
             }
         } while (option != 0);
     }
 
-    private boolean productExists(int id) {
+    public boolean productExists(int id) {
         Connect connect = new Connect();
         String sql = "SELECT COUNT(id) FROM Product WHERE id =" + id;
         ResultSet resultSet = connect.executeQuery(sql);
@@ -100,8 +96,6 @@ public class Product {
                 int count = resultSet.getInt(1);
                 if (count != 0) {
                     check = true;
-                } else {
-                    check = false;
                 }
             }
         } catch (SQLException ex) {
@@ -124,15 +118,15 @@ public class Product {
     public void alterProduct() {
         Scanner scanner = new Scanner(in);
         out.print("Insira o código do produto: ");
-        var id = scanner.nextLine();
-        if (productExists(Integer.parseInt(id))) {
+        var itemId = scanner.nextLine();
+        if (productExists(Integer.parseInt(itemId))) {
             out.print("Insira o novo nome do produto: ");
             var nameProduct = scanner.nextLine();
             out.print("Insira o novo preço do produto: ");
             var priceProduct = scanner.nextLine();
             out.print("Insira a nova quantidade do produto: ");
             var quantityProduct = scanner.nextLine();
-            updateProduct(Integer.parseInt(id), nameProduct, Double.parseDouble(priceProduct), Integer.parseInt(quantityProduct));
+            updateProduct(Integer.parseInt(itemId), nameProduct, Double.parseDouble(priceProduct), Integer.parseInt(quantityProduct));
         } else {
             out.println("Produto não encontrado.");
         }
@@ -141,9 +135,9 @@ public class Product {
     public void removeProduct() {
         Scanner scanner = new Scanner(in);
         out.print("Insira o código do produto a ser removido: ");
-        var id = scanner.nextLine();
-        if (productExists(Integer.parseInt(id))) {
-            this.deleteProduct(Integer.parseInt(id));
+        var itemId = scanner.nextLine();
+        if (productExists(Integer.parseInt(itemId))) {
+            this.deleteProduct(Integer.parseInt(itemId));
         } else {
             out.println("Produto não encontrado.");
         }
@@ -158,7 +152,7 @@ public class Product {
             out.println("Nome: " + p.getName());
             out.println("Preço: " + p.getPrice());
             out.println("Quantidade: " + p.getQuantity());
-            out.println("#############################\n");
+            out.println("#############################");
         }
     }
 
@@ -198,12 +192,11 @@ public class Product {
 
         try {
             while (resultSet.next()) {
-                Product product = new Product();
-                product.setId(resultSet.getInt("id"));
-                product.setName(resultSet.getString("nameProduct"));
-                product.setPrice(resultSet.getDouble("price"));
-                product.setQuantity(resultSet.getInt("quantity"));
-                productList.add(product);
+                this.setId(resultSet.getInt("id"));
+                this.setName(resultSet.getString("nameProduct"));
+                this.setPrice(resultSet.getDouble("price"));
+                this.setQuantity(resultSet.getInt("quantity"));
+                productList.add(this);
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao retornar os produtos: " + e.getMessage());
@@ -224,7 +217,7 @@ public class Product {
                 out.println("Nome: " + p.getName());
                 out.println("Preço: " + p.getPrice());
                 out.println("Quantidade: " + p.getQuantity());
-                out.println("#############################\n");
+                out.println("#############################");
                 productFound = true;
             }
         }
