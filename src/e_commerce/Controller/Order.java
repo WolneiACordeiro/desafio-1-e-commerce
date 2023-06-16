@@ -2,6 +2,8 @@ package e_commerce.Controller;
 
 import e_commerce.Model.Connect;
 
+import javax.swing.*;
+
 import static java.lang.System.out;
 
 
@@ -24,6 +26,7 @@ public class Order {
                 out.println("Preço: " + item.getPrice());
                 out.println("Quantidade: " + item.getQuantity());
                 totalCartPrice += item.getQuantity() * item.getPrice();
+                updateProductQuantity(item.getId(), item.getQuantity());
             }
             out.println("#############################");
             out.println("TOTAL DO CARRINHO: R$" + totalCartPrice);
@@ -35,6 +38,12 @@ public class Order {
 
     public void clearCart(ShoppingCart shoppingCart) {
         shoppingCart.getItems().clear();
+    }
+
+    public void updateProductQuantity(Integer id, Integer quantity) {
+        Connect connect = new Connect();
+        String sql = "UPDATE Product SET quantity = quantity - " + quantity + " WHERE id = " + id;
+        connect.executeSQL(sql);
     }
 
 }
