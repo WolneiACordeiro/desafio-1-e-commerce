@@ -2,6 +2,7 @@ package e_commerce.Controller;
 
 import e_commerce.Model.Connect;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,6 +15,10 @@ import static java.lang.System.out;
 public class ShoppingCart {
 
     private List<Product> items;
+
+    public List<Product> getItems() {
+        return items;
+    }
 
     public ShoppingCart() {
         items = new ArrayList<>();
@@ -37,51 +42,78 @@ public class ShoppingCart {
                 Connect connect = new Connect();
                 String sql = "SELECT * FROM Product WHERE id = " + itemId;
                 ResultSet resultSet = connect.executeQuery(sql);
-                if(this.itemCartExist(Integer.parseInt(itemId))){
-                    out.println("O produto já está na lista!");
-                }else{
-                    out.println("O produto não está na lista!");
-                }
-                try {
-                    if (resultSet.next()) {
-                    int stockQuantity = resultSet.getInt("quantity");
-                    String stockName = resultSet.getString("nameProduct");
-                    double stockPrice = resultSet.getDouble("price");
-                    out.print("Insira a quantidade que deseja comprar de:\n" + stockName + " | Preço(UN) R$" + stockPrice + "| Em estoque " + stockQuantity + "(UN)\n");
-                        try {
-                            var itemQuantity = scanner.nextLine();
 
-                            if (Integer.parseInt(itemQuantity) > stockQuantity) {
-                                out.print("Desculpe o estoque disponível é de apenas " + stockQuantity + " Unidades para esse produto!\n");
-                            } else if (Integer.parseInt(itemQuantity) > 0) {
-                                this.addToCart(Integer.parseInt(itemId), Integer.parseInt(itemQuantity));
-                            } else if (Integer.parseInt(itemQuantity) <= 0) {
-                                out.print("Nenhum item foi adicionado ao carrinho (Digite uma quantidade numérica que seja maior que '0')");
-                            }
-                        } catch (NumberFormatException e) {
-                                out.print("A quantidade digitada não é um número válido.");
-                            }
-                    }
-                } catch (SQLException ex) {
+                if(this.itemCartExist(Integer.parseInt(itemId))){
+                    try {
+                        if (resultSet.next()) {
+                            boolean itemExistenceInCart = true;
+                            int stockQuantity = resultSet.getInt("quantity");
+                            String stockName = resultSet.getString("nameProduct");
+                            double stockPrice = resultSet.getDouble("price");
+                            int currentItemQuantity = getItemQuantity(Integer.parseInt(itemId));
+                            out.print("Este item já se encontra em seu carrinho, insira quantas novas unidades deseja comprar:\n" + stockName + " | Preço(UN) R$" + stockPrice + "| Em estoque " + stockQuantity + "(UN) | No Carrinho " + currentItemQuantity + "(UN)\n");
+                            this.checkQuantityOrder(Integer.parseInt(itemId), stockQuantity, itemExistenceInCart);
+                        }
+                    } catch (SQLException ex) {
                         ex.printStackTrace();
                     }
+                }else{
+                    try {
+                        if (resultSet.next()) {
+                            boolean itemExistenceInCart = false;
+                            int stockQuantity = resultSet.getInt("quantity");
+                            String stockName = resultSet.getString("nameProduct");
+                            double stockPrice = resultSet.getDouble("price");
+                            out.print("Insira a quantidade que deseja comprar de:\n" + stockName + " | Preço(UN) R$" + stockPrice + "| Em estoque " + stockQuantity + "(UN)\n");
+                            this.checkQuantityOrder(Integer.parseInt(itemId), stockQuantity, itemExistenceInCart);
+                        }
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+                }
             } else {
                     out.println("Nenhum item encontrado com o Código " + itemId + ".");
                 }
+    }
+    public int getItemQuantity(int itemId) {
+        for (Product item : items) {
+            if (item.getId() == itemId) {
+                return item.getQuantity();
+            }
+        }
+        return 0;
+    }
+    public void checkQuantityOrder (int itemId, int stockQuantity, boolean itemExistenceInCart){
+        try {
+            Scanner scanner = new Scanner(in);
+            Integer itemQuantity = Integer.valueOf(scanner.nextLine());
+            if (itemExistenceInCart) {
+                itemQuantity += getItemQuantity(itemId);
+            }
+            if (itemQuantity > stockQuantity) {
+                out.print("Desculpe o estoque disponível é de apenas " + stockQuantity + " Unidades para esse produto!\n");
+            } else if ((itemQuantity > 0) && (!itemExistenceInCart)) {
+                this.addToCart(itemId, itemQuantity);
+            } else if ((itemQuantity > 0) && (itemExistenceInCart)) {
+                this.updateItem(itemId, itemQuantity);
+            } else if (itemQuantity <= 0) {
+                out.print("Nenhum item foi adicionado ao carrinho (Digite uma quantidade numérica que seja maior que '0')");
+            }
+        } catch (NumberFormatException e) {
+            out.print("Por favor insira apenas quantidades numéricas.\n");
+        }
     }
     public void addToCart(int itemId, int itemQuantity) {
         Connect connect = new Connect();
         String sql = "SELECT * FROM Product WHERE id = " + itemId;
         ResultSet resultSet = connect.executeQuery(sql);
-
         try {
             if (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("nameProduct");
                 double price = resultSet.getDouble("price");
-                int quantity = itemQuantity;
 
-                Product item = new Product(id, name, price, quantity);
+                Product item = new Product(id, name, price, itemQuantity);
                 items.add(item);
                 out.println("#############################");
                 out.println("Item adicionado ao carrinho:");
@@ -102,6 +134,7 @@ public class ShoppingCart {
         for (Product item : items) {
             if (item.getId() == itemId) {
                 item.setQuantity(newQuantity);
+                out.println("#############################");
                 out.println("Item atualizado:");
                 out.println("ID: " + item.getId());
                 out.println("Nome: " + item.getName());
@@ -113,21 +146,24 @@ public class ShoppingCart {
         out.println("Nenhum item encontrado no carrinho com o Código " + itemId + ".");
     }
 
-
     public void viewCart() {
         if (items.isEmpty()) {
+            out.println("#############################");
             out.println("A lista de compras está vazia.");
         } else {
             out.println("#############################");
             out.println("Lista de compras:");
-
+            double totalCartPrice = 0.00;
             for (Product item : items) {
                 out.println("#############################");
                 out.println("ID: " + item.getId());
                 out.println("Nome: " + item.getName());
                 out.println("Preço: " + item.getPrice());
                 out.println("Quantidade: " + item.getQuantity());
+                totalCartPrice += item.getQuantity() * item.getPrice();
             }
+            out.println("#############################");
+            out.println("TOTAL DO CARRINHO: R$" + totalCartPrice);
         }
     }
 

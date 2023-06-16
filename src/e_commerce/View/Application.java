@@ -1,4 +1,5 @@
 package e_commerce.View;
+import e_commerce.Controller.Order;
 import e_commerce.Controller.Product;
 import e_commerce.Controller.ShoppingCart;
 
@@ -11,10 +12,11 @@ public class Application {
         int option;
         Product product = new Product();
         ShoppingCart shoppingCart = new ShoppingCart();
+        Order order = new Order();
         do {
             Scanner scanner = new Scanner(in);
             out.println("#############| MENU |#############");
-            out.println(" 1 - Adicionar ao Carrinho \n 2 - Visualizar Carrinho \n 3 - Lista de Produtos \n 4 - Procurar Produto  \n 5 - Gerenciar Produtos \n 0 - Sair");
+            out.println(" 1 - Adicionar ao Carrinho \n 2 - Visualizar Carrinho \n 3 - Finalizar Pedido \n 4 - Lista de Produtos \n 5 - Procurar Produto  \n 6 - Gerenciar Produtos \n 0 - Sair");
             out.println("Selecione uma opção: ");
             option = Integer.parseInt(scanner.nextLine());
 
@@ -28,14 +30,18 @@ public class Application {
                     shoppingCart.viewCart();
                 }
                 case 3 -> {
+                    out.println("#############| Finalizar Pedido - Selecionado |#############");
+                    order.finishOrder(shoppingCart);
+                }
+                case 4 -> {
                     out.println("#############| Lista de Produtos - Selecionado |#############");
                     product.showProducts();
                 }
-                case 4 -> {
+                case 5 -> {
                     out.println("#############| Procurar Produto - Selecionado |#############");
                     product.findProduct();
                 }
-                case 5 -> {
+                case 6 -> {
                     out.println("#############| Gerenciar Produtos - Selecionado |#############");
                     product.menuProduct();
                 }

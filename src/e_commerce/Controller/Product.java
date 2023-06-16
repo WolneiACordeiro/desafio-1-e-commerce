@@ -192,11 +192,18 @@ public class Product {
 
         try {
             while (resultSet.next()) {
-                this.setId(resultSet.getInt("id"));
-                this.setName(resultSet.getString("nameProduct"));
-                this.setPrice(resultSet.getDouble("price"));
-                this.setQuantity(resultSet.getInt("quantity"));
-                productList.add(this);
+                int productId = resultSet.getInt("id");
+                String productName = resultSet.getString("nameProduct");
+                double productPrice = resultSet.getDouble("price");
+                int productQuantity = resultSet.getInt("quantity");
+
+                Product product = new Product();
+                product.setId(productId);
+                product.setName(productName);
+                product.setPrice(productPrice);
+                product.setQuantity(productQuantity);
+
+                productList.add(product);
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro ao retornar os produtos: " + e.getMessage());
@@ -206,6 +213,7 @@ public class Product {
 
         return productList;
     }
+
     public void showProductsByName(String productName) {
         List<Product> productList = this.getProducts();
         boolean productFound = false;
