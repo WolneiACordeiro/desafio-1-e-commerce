@@ -93,9 +93,9 @@ public class ShoppingCart {
                 out.print("Desculpe o estoque disponível é de apenas " + stockQuantity + " Unidades para esse produto!\n");
             } else if ((itemQuantity > 0) && (!itemExistenceInCart)) {
                 this.addToCart(itemId, itemQuantity);
-            } else if ((itemQuantity > 0) && (itemExistenceInCart)) {
+            } else if (itemQuantity > 0) {
                 this.updateItem(itemId, itemQuantity);
-            } else if (itemQuantity <= 0) {
+            } else {
                 out.print("Nenhum item foi adicionado ao carrinho (Digite uma quantidade numérica que seja maior que '0')");
             }
         } catch (NumberFormatException e) {
