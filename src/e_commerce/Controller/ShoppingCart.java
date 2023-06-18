@@ -2,7 +2,6 @@ package e_commerce.Controller;
 
 import e_commerce.Model.Connect;
 
-import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -86,7 +85,7 @@ public class ShoppingCart {
     public void checkQuantityOrder (int itemId, int stockQuantity, boolean itemExistenceInCart){
         try {
             Scanner scanner = new Scanner(in);
-            Integer itemQuantity = Integer.valueOf(scanner.nextLine());
+            int itemQuantity = Integer.parseInt(scanner.nextLine());
             if (itemExistenceInCart) {
                 itemQuantity += getItemQuantity(itemId);
             }
@@ -149,7 +148,7 @@ public class ShoppingCart {
     public void viewCart() {
         if (items.isEmpty()) {
             out.println("#############################");
-            out.println("A lista de compras está vazia.");
+            out.println("O carrinho está VAZIO.");
         } else {
             out.println("#############################");
             out.println("Lista de compras:");

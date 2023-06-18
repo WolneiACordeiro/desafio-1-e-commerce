@@ -2,6 +2,7 @@ package e_commerce.Model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,13 +16,14 @@ public class Connect {
 
     private Connection connection;
     private Statement statement;
+    private PreparedStatement preparedStatement;
 
     public boolean connectDatabase() {
         boolean result = true;
 
         try {
             Class.forName(DRIVER);
-            connection = DriverManager.getConnection(URL, USER, PASSWORD);
+            connection = DriverManager.getConnection(URL + "?useUnicode=true&characterEncoding=UTF-8", USER, PASSWORD);
             statement = connection.createStatement();
 
         } catch (ClassNotFoundException driverEx) {
@@ -37,6 +39,9 @@ public class Connect {
     public void disconnect() {
         try {
             statement.close();
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
             connection.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Unable to close the database connection: " + ex);
@@ -66,5 +71,13 @@ public class Connect {
             }
         }
         return resultSet;
+    }
+
+    public PreparedStatement prepareStatement(String sql) throws SQLException {
+        if (connectDatabase()) {
+            preparedStatement = connection.prepareStatement(sql);
+            return preparedStatement;
+        }
+        return null;
     }
 }
