@@ -1,0 +1,23 @@
+
+n
+java:S1192€"KDefine a constant instead of duplicating this literal "PreÃ§o: R$" 3 times.(É÷÷²ÿÿÿÿÿ8¾‰à‘1
+h
+java:S11926"FDefine a constant instead of duplicating this literal "price" 4 times.(ÓÚÜáıÿÿÿÿ8êğ1
+k
+java:S1192"MDefine a constant instead of duplicating this literal "Quantidade: " 5 times.(½Ğˆ§8ëğ1
+
+java:S1192-"bDefine a constant instead of duplicating this literal "SELECT * FROM Product WHERE id = " 3 times.(ŠÚê8ëğ1
+|
+java:S1192~"_Define a constant instead of duplicating this literal "#############################" 11 times.(Í½Ó8ëğ1
+ˆ
+java:S1192M"fDefine a constant instead of duplicating this literal "Nenhum item encontrado com o CÃ³digo " 3 times.(£•ÇÃÿÿÿÿÿ8ëğ1
+c
+java:S1192"GDefine a constant instead of duplicating this literal "Nome: " 5 times.(â¤Ï|8ìğ1
+i
+java:S11925"LDefine a constant instead of duplicating this literal "nameProduct" 4 times.(‚æÎ8ìğ1
+v	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(½™İã8ïğ1
+Z	java:S106"9Replace this use of System.out or System.err by a logger.(“×·ôşÿÿÿÿ8šğ1
+t
+java:S3776'"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(¢’üÚÿÿÿÿÿ8­ğ1
+L
+java:S5413¾")Verify that "remove()" is used correctly.(óÉ†õÿÿÿÿÿ8Ñğ1
