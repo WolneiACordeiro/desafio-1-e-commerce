@@ -18,12 +18,12 @@ public class Order {
     public void finishOrder(ShoppingCart shoppingCart) {
         if (shoppingCart.getItems().isEmpty()) {
             out.println("#############################");
-            out.println("Não é possível finalizar o pedido com o carrinho VAZIO.");
+            out.println("NÃO É POSSÍVEL FINALIZAR UM PEDIDO COM O CARRINHO VAZIO.");
         } else {
             do {
                 Scanner scanner = new Scanner(in);
                 out.println("#############| DESEJA FINALIZAR O SEU PEDIDO? |#############");
-                out.println(" 1 - SIM \n 2 - NÃO");
+                out.println(" 1 - SIM | 2 - NÃO");
                 out.println("Selecione uma opção: ");
                 option = Integer.parseInt(scanner.nextLine());
 

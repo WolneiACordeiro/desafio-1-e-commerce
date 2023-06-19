@@ -1,0 +1,33 @@
+
+i
+java:S1192»"FDefine a constant instead of duplicating this literal "price" 3 times.(¿ı¥úÿÿÿÿ8éí¯¨1
+k
+java:S1192¥"MDefine a constant instead of duplicating this literal "Quantidade: " 5 times.(¶½îµ8êí¯¨1
+l
+java:S1192¹"IDefine a constant instead of duplicating this literal "quantity" 3 times.(¹Ï¿Úşÿÿÿÿ8êí¯¨1
+g
+java:S1192¤"IDefine a constant instead of duplicating this literal "PreÃ§o: " 5 times.(ŸåÒª8êí¯¨1
+}
+java:S1192¢"_Define a constant instead of duplicating this literal "#############################" 15 times.(Í½Ó8êí¯¨1
+e
+java:S1192£"GDefine a constant instead of duplicating this literal "Nome: " 5 times.(èØÙ8êí¯¨1
+o
+java:S1192º"LDefine a constant instead of duplicating this literal "nameProduct" 3 times.(Ó†—Âşÿÿÿÿ8êí¯¨1
+X
+java:S1141Á"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8ëí¯¨1
+X
+java:S1141Ñ"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8ëí¯¨1
+X
+java:S1141á"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8ëí¯¨1
+X
+java:S1141Œ"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ8ëí¯¨1
+v	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(½™İã8îí¯¨1
+Z	java:S106"9Replace this use of System.out or System.err by a logger.(“×·ôşÿÿÿÿ8ëğ¯¨1
+o
+java:S3776m"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(Û—ĞÚ8üğ¯¨1
+p
+java:S3776°"RRefactor this method to reduce its Cognitive Complexity from 42 to the 15 allowed.(›Ù™á8†ñ¯¨1
+V	java:S106Æ"9Replace this use of System.out or System.err by a logger.(ë²â‡8ñ¯¨1
+[	java:S106Ê"9Replace this use of System.out or System.err by a logger.(ú•©Øıÿÿÿÿ8ñ¯¨1
+V	java:S106Û"9Replace this use of System.out or System.err by a logger.(¥õœ8 ñ¯¨1
+[	java:S106ß"9Replace this use of System.out or System.err by a logger.(ÏÁ²¾ûÿÿÿÿ8¡ñ¯¨1

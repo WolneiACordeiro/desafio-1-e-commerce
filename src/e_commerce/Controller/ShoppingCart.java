@@ -161,7 +161,7 @@ public class ShoppingCart {
                 out.println("Quantidade: " + item.getQuantity());
                 out.println("#############################");
             } else {
-                out.println("Nenhum item encontrado com o Código " + itemId + ".");
+                out.println("Nenhum produto encontrado com o Código " + itemId + ".");
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -173,7 +173,7 @@ public class ShoppingCart {
             if (item.getId() == itemId) {
                 item.setQuantity(newQuantity);
                 out.println("#############################");
-                out.println("Item atualizado:");
+                out.println("Produto atualizado:");
                 out.println("ID: " + item.getId());
                 out.println("Nome: " + item.getName());
                 out.println("Preço: R$" + item.getPrice());
@@ -190,7 +190,7 @@ public class ShoppingCart {
             if (item.getId() == itemId) {
                 items.remove(i);
                 out.println("#############################");
-                out.println("Item removido do carrinho:");
+                out.println("Produto removido do carrinho:");
                 out.println("ID: " + item.getId());
                 out.println("Nome: " + item.getName());
                 out.println("Preço(UN): R$" + item.getPrice());
@@ -199,13 +199,13 @@ public class ShoppingCart {
                 return;
             }
         }
-        out.println("Nenhum item encontrado com o ID " + itemId + " no carrinho.");
+        out.println("Nenhum produto encontrado com o ID " + itemId + " no carrinho.");
     }
 
     public void viewCart() {
         if (items.isEmpty()) {
             out.println("#############################");
-            out.println("O carrinho está VAZIO.");
+            out.println("O CARRINHO ESTÁ VAZIO.");
         } else {
             out.println("#############################");
             out.println("Lista de compras:");

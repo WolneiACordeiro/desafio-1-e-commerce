@@ -71,15 +71,15 @@ public class Product {
             option = Integer.parseInt(scanner.nextLine());
             switch (option) {
                 case 1 -> {
-                    out.println("#############| Cadastrar Produto Selecionado |#############");
+                    out.println("\n#############| Cadastrar Produto Selecionado |#############");
                     this.createProduct();
                 }
                 case 2 -> {
-                    out.println("#############| Alterar Produto Selecionado |#############");
+                    out.println("\n#############| Alterar Produto Selecionado |#############");
                     this.alterProduct();
                 }
                 case 3 -> {
-                    out.println("#############| Remover Produto Selecionado |#############");
+                    out.println("\n#############| Remover Produto Selecionado |#############");
                     this.removeProduct();
                 }
                 case 0 -> out.println("Voltar");
