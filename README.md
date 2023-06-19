@@ -54,11 +54,11 @@ Com o projeto aberto dentro da IDE, procure pelo arquivo principal Application l
 
 Abra o arquivo Application, dois cliques sobre ele, o código fonte deverá ser exibido na IDE.
 
-Para inicializar este arquivo, você pode optar por dar run no projeto procurando o botão que fica (geralmente) no parte superior direita da IDE, ou utilizando o comando rápido (Shift+F10), esse comando varia de acordo com a IDE.
+Para inicializar este arquivo, você pode optar por dar run no projeto procurando o botão que fica (geralmente) no parte superior direita da IDE, ou utilizando o comando rápido (Shift+F10), esse comando pode variar de acordo com a IDE.
 
 ![4](https://github.com/WolneiACordeiro/desafio-1-e-commerce/assets/78006412/6f2c9be6-489d-4a35-8b67-0f716f838514)
 
-Se todo processo ocorrer com sucesso o seguinte MENU irá aparecer no terminal da sua IDE, rodando o projeto funcionalmente.
+Se todo processo ocorrer com sucesso o seguinte MENU irá aparecer no terminal da sua IDE, o banco de dados MySQL será criado automaticamente, permitindo rodar o projeto funcionalmente.
 
 ![5](https://github.com/WolneiACordeiro/desafio-1-e-commerce/assets/78006412/2af8464b-113a-40cd-962d-ec6b5862733f)
 
@@ -77,6 +77,8 @@ Se todo processo ocorrer com sucesso o seguinte MENU irá aparecer no terminal d
 ![3](https://github.com/WolneiACordeiro/desafio-1-e-commerce/assets/78006412/ac36edea-0548-445a-a965-5cee966fa10c)
 
 4. Certifique-se que não exista nenhum banco de dados (database) de nome **ecommerceCartWAC** cadastrado em seu servidor MySQL
+
+5. Caso e somente caso a classe de conexão não esteja criando o banco de dados automaticamente, o script SQL que pode ser executado dentro do seu gerenciador de banco de dados MySQL se encontra em **src/Model/ecommercecartwac**
 
 ### Manifest: :newspaper:
 
