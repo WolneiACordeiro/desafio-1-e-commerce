@@ -12,13 +12,5 @@ Q
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
-[
-+src/e_commerce/Controller/ShoppingCart.java,7\e\7ebd0fb9cd5d1de56e8cb774180cc97268d0573b
-T
-$src/e_commerce/Controller/Order.java,7\d\7da250304485fa553c735d6457921f505d626e60
 Y
 )src/e_commerce/Model/ecommercecartwac.sql,9\f\9f58686d4d5f8fb7af3f202d4446613863f4f2ea
-T
-$src/e_commerce/View/Application.java,c\b\cbd0a0be83759cf0faffa46783cb70af3ebb73d3
-V
-&src/e_commerce/Controller/Product.java,6\f\6fffe4d373832c8404779767f119a305f8111adf

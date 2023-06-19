@@ -67,7 +67,7 @@ public class Product {
         int option;
         do {
             out.println(" 1 - Cadastrar \n 2 - Alterar \n 3 - Remover \n 0 - Voltar");
-            out.print("Selecione uma opção: ");
+            out.println("SELECIONE UMA OPÇÃO: ");
             option = Integer.parseInt(scanner.nextLine());
             switch (option) {
                 case 1 -> {
