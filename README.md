@@ -52,11 +52,15 @@ Com o projeto aberto dentro da IDE, procure pelo arquivo principal Application l
 
 **src/View/Application**
 
-Abra o arquivo Application dois cliques sobre ele, o código fonte será exibido na IDE.
+Abra o arquivo Application, dois cliques sobre ele, o código fonte deverá ser exibido na IDE.
 
-Para inicializar este arquivo, você pode optar por inicializar procurando o botão que fica (geralmente) no parte superior direita da IDE, ou utilizando o comando rápido (Shift+F10), esse comando varia de acordo com a IDE.
+Para inicializar este arquivo, você pode optar por dar run no projeto procurando o botão que fica (geralmente) no parte superior direita da IDE, ou utilizando o comando rápido (Shift+F10), esse comando varia de acordo com a IDE.
+
+![4](https://github.com/WolneiACordeiro/desafio-1-e-commerce/assets/78006412/6f2c9be6-489d-4a35-8b67-0f716f838514)
 
 Se todo processo ocorrer com sucesso o seguinte MENU irá aparecer no terminal da sua IDE, rodando o projeto funcionalmente.
+
+![5](https://github.com/WolneiACordeiro/desafio-1-e-commerce/assets/78006412/2af8464b-113a-40cd-962d-ec6b5862733f)
 
 ### Possíveis configurações necessárias: :bug:
 
