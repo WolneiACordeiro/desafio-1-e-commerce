@@ -36,7 +36,7 @@ public class Order {
                             out.println("#############################");
                             out.println("ID: " + item.getId());
                             out.println("Nome: " + item.getName());
-                            out.println("Preço: " + item.getPrice());
+                            out.println("Preço: R$" + item.getPrice());
                             out.println("Quantidade: " + item.getQuantity());
                             totalCartPrice += item.getQuantity() * item.getPrice();
                             updateProductQuantity(item.getId(), item.getQuantity());
@@ -44,8 +44,7 @@ public class Order {
                         out.println("#############################");
                         out.println("TOTAL PAGO: R$" + totalCartPrice);
                         out.println("#############################");
-                        out.println("PEDIDO FINALIZADO");
-                        JOptionPane.showMessageDialog(null, "Pedido realizado com Sucesso!");
+                        out.println("PEDIDO REALIZADO COM SUCESSO");
                         this.clearCart(shoppingCart);
                     }
                     case 2 -> out.println("Retornar");

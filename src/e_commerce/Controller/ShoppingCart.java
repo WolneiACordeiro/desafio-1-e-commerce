@@ -23,6 +23,10 @@ public class ShoppingCart {
         items = new ArrayList<>();
     }
 
+    Scanner scanner = new Scanner(in);
+
+    Utils utils = new Utils();
+
     public boolean itemCartExist(int itemId) {
         for (Product item : items) {
             if (item.getId() == itemId) {
@@ -34,7 +38,6 @@ public class ShoppingCart {
 
     public void selectProductToCart() {
         Product product = new Product();
-        Scanner scanner = new Scanner(in);
         out.print("Digite o código do produto que deseja adicionar ao carrinho: ");
         var itemId = scanner.nextLine();
             if (product.productExists(Integer.parseInt(itemId))) {
@@ -84,7 +87,6 @@ public class ShoppingCart {
     }
     public void checkQuantityOrder (int itemId, int stockQuantity, boolean itemExistenceInCart){
         try {
-            Scanner scanner = new Scanner(in);
             int itemQuantity = Integer.parseInt(scanner.nextLine());
             if (itemExistenceInCart) {
                 itemQuantity += getItemQuantity(itemId);
@@ -102,6 +104,42 @@ public class ShoppingCart {
             out.print("Por favor insira apenas quantidades numéricas.\n");
         }
     }
+
+    public void removeProductFromCart() {
+        Product product = new Product();
+        out.print("Digite o código do produto que deseja remover do carrinho: ");
+        var itemId = scanner.nextLine();
+        if (product.productExists(Integer.parseInt(itemId))) {
+            Connect connect = new Connect();
+            String sql = "SELECT * FROM Product WHERE id = " + itemId;
+            ResultSet resultSet = connect.executeQuery(sql);
+
+            try{
+                if (resultSet.next()) {
+                    int currentItemQuantity = getItemQuantity(Integer.parseInt(itemId));
+                    String productName = resultSet.getString("nameProduct");
+                    double productPrice = resultSet.getDouble("price");
+
+                    int option = -1;
+
+                    out.println("#############| REMOVER PRODUTO DO CARRINHO? |#############");
+                    out.println("#############################");
+                    out.println("Nome: " + productName);
+                    out.println("Preço: R$" + productPrice);
+                    out.println("Quantidade: " + currentItemQuantity);
+                    out.println("#############################");
+
+                    utils.confirmAction(option, () -> this.removeFromCart(Integer.valueOf(itemId)));
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+
+        } else {
+            out.println("Nenhum item encontrado com o Código " + itemId + ".");
+        }
+    }
+
     public void addToCart(int itemId, int itemQuantity) {
         Connect connect = new Connect();
         String sql = "SELECT * FROM Product WHERE id = " + itemId;
@@ -137,12 +175,30 @@ public class ShoppingCart {
                 out.println("Item atualizado:");
                 out.println("ID: " + item.getId());
                 out.println("Nome: " + item.getName());
-                out.println("Preço: " + item.getPrice());
+                out.println("Preço: R$" + item.getPrice());
                 out.println("Quantidade: " + item.getQuantity());
                 return;
             }
         }
         out.println("Nenhum item encontrado no carrinho com o Código " + itemId + ".");
+    }
+
+    public void removeFromCart(int itemId) {
+        for (int i = 0; i < items.size(); i++) {
+            Product item = items.get(i);
+            if (item.getId() == itemId) {
+                items.remove(i);
+                out.println("#############################");
+                out.println("Item removido do carrinho:");
+                out.println("ID: " + item.getId());
+                out.println("Nome: " + item.getName());
+                out.println("Preço(UN): R$" + item.getPrice());
+                out.println("Quantidade: " + item.getQuantity());
+                out.println("#############################");
+                return;
+            }
+        }
+        out.println("Nenhum item encontrado com o ID " + itemId + " no carrinho.");
     }
 
     public void viewCart() {
@@ -157,7 +213,7 @@ public class ShoppingCart {
                 out.println("#############################");
                 out.println("ID: " + item.getId());
                 out.println("Nome: " + item.getName());
-                out.println("Preço: " + item.getPrice());
+                out.println("Preço: R$" + item.getPrice());
                 out.println("Quantidade: " + item.getQuantity());
                 totalCartPrice += item.getQuantity() * item.getPrice();
             }

@@ -29,6 +29,8 @@ public class Product {
     }
     Scanner scanner = new Scanner(in);
     Connect connect = new Connect();
+
+    Utils utils = new Utils();
     public int getId() {
         return id;
     }
@@ -167,7 +169,7 @@ public class Product {
             double finalPriceProduct = priceProduct;
             int finalQuantityProduct = quantityProduct;
 
-        confirmAction(option, () -> registerProduct(finalNameProduct, finalPriceProduct, finalQuantityProduct));
+        utils.confirmAction(option, () -> registerProduct(finalNameProduct, finalPriceProduct, finalQuantityProduct));
 
     }
 
@@ -244,7 +246,7 @@ public class Product {
                         String finalNameProduct = nameProduct;
                         double finalPriceProduct = priceProduct;
                         int finalQuantityProduct = quantityProduct;
-                        confirmAction(option, () -> this.updateProduct(Integer.valueOf(itemId), finalNameProduct, finalPriceProduct, finalQuantityProduct));
+                        utils.confirmAction(option, () -> this.updateProduct(Integer.valueOf(itemId), finalNameProduct, finalPriceProduct, finalQuantityProduct));
 
                 }
             } catch (SQLException ex) {
@@ -278,7 +280,7 @@ public class Product {
                         out.println("Quantidade: " + productQuantity);
                         out.println("#############################");
 
-                        confirmAction(option, () -> this.deleteProduct(Integer.valueOf(itemId)));
+                        utils.confirmAction(option, () -> this.deleteProduct(Integer.valueOf(itemId)));
                     }
                 } catch (SQLException ex) {
                         ex.printStackTrace();
@@ -415,37 +417,6 @@ public class Product {
         if (!productFound) {
             out.println("Nenhum produto encontrado com o nome contendo '" + productName + "'.");
         }
-    }
-
-    public void confirmAction(int option, Runnable method) {
-        do {
-            boolean validOption = false;
-            while (!validOption) {
-                out.println("SELECIONE UMA OPÇÃO: (1 - SIM) e OPÇÃO (2 - NÃO)");
-                try {
-                    option = Integer.parseInt(scanner.nextLine());
-                    if ((option != 1) && (option != 2)) {
-                        out.println("Escolha apenas entre a OPÇÃO (1 - SIM) e OPÇÃO (2 - NÃO)");
-                    } else {
-                        validOption = true;
-                    }
-                } catch (NumberFormatException e) {
-                    out.println("A únicas opções são os valores numéricos inteiros: OPÇÃO (1 - SIM) e OPÇÃO (2 - NÃO)");
-                }
-            }
-            switch (option) {
-                case 1:
-                    method.run();
-                    break;
-                case 2:
-                    out.println("RETORNAR");
-                    out.println("#############################");
-                    break;
-                default:
-                    out.println("Opção inválida");
-                    break;
-            }
-        } while ((option != 2) && (option != 1));
     }
 
 }

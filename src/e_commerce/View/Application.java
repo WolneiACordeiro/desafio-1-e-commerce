@@ -20,8 +20,8 @@ public class Application {
         do {
 
             Scanner scanner = new Scanner(in);
-            out.println("#############| MENU |#############");
-            out.println(" 1 - Adicionar ao Carrinho \n 2 - Visualizar Carrinho \n 3 - Finalizar Pedido \n 4 - Lista de Produtos \n 5 - Procurar Produto  \n 6 - Gerenciar Produtos \n 0 - Sair");
+            out.println("\n#############| MENU |#############");
+            out.println(" 1 - Adicionar ao Carrinho \n 2 - Remover do Carrinho \n 3 - Visualizar Carrinho \n 4 - Finalizar Pedido \n 5 - Lista de Produtos \n 6 - Procurar Produto  \n 7 - Gerenciar Produtos \n 0 - Sair");
             out.println("SELECIONE UMA OPÇÃO: ");
 
             try {
@@ -32,22 +32,26 @@ public class Application {
                         shoppingCart.selectProductToCart();
                     }
                     case 2 -> {
+                        out.println("#############| Remover do Carrinho - Selecionado |#############");
+                        shoppingCart.removeProductFromCart();
+                    }
+                    case 3 -> {
                         out.println("#############| Visualizar Carrinho - Selecionado |#############");
                         shoppingCart.viewCart();
                     }
-                    case 3 -> {
+                    case 4 -> {
                         out.println("#############| Finalizar Pedido - Selecionado |#############");
                         order.finishOrder(shoppingCart);
                     }
-                    case 4 -> {
+                    case 5 -> {
                         out.println("#############| Lista de Produtos - Selecionado |#############");
                         product.showProducts();
                     }
-                    case 5 -> {
+                    case 6 -> {
                         out.println("#############| Procurar Produto - Selecionado |#############");
                         product.findProduct();
                     }
-                    case 6 -> {
+                    case 7 -> {
                         out.println("#############| Gerenciar Produtos - Selecionado |#############");
                         product.menuProduct();
                     }
