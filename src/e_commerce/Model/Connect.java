@@ -10,10 +10,10 @@ import javax.swing.JOptionPane;
 
 public class Connect {
     private static final String DRIVER = "com.mysql.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://localhost/ecommerceCart";
+    private static final String URL = "jdbc:mysql://localhost/ecommerceCartWAC";
     private static final String USER = "root";
     private static final String PASSWORD = "";
-    private static final String DATABASE_NAME = "ecommerceCart";
+    private static final String DATABASE_NAME = "ecommerceCartWAC";
 
     private Connection connection;
     private Statement statement;
