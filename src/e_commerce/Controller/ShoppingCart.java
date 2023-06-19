@@ -106,37 +106,38 @@ public class ShoppingCart {
     }
 
     public void removeProductFromCart() {
-        Product product = new Product();
-        out.print("Digite o código do produto que deseja remover do carrinho: ");
-        var itemId = scanner.nextLine();
-        if (product.productExists(Integer.parseInt(itemId))) {
-            Connect connect = new Connect();
-            String sql = "SELECT * FROM Product WHERE id = " + itemId;
-            ResultSet resultSet = connect.executeQuery(sql);
-
-            try{
-                if (resultSet.next()) {
-                    int currentItemQuantity = getItemQuantity(Integer.parseInt(itemId));
-                    String productName = resultSet.getString("nameProduct");
-                    double productPrice = resultSet.getDouble("price");
-
-                    int option = -1;
-
-                    out.println("#############| REMOVER PRODUTO DO CARRINHO? |#############");
-                    out.println("#############################");
-                    out.println("Nome: " + productName);
-                    out.println("Preço: R$" + productPrice);
-                    out.println("Quantidade: " + currentItemQuantity);
-                    out.println("#############################");
-
-                    utils.confirmAction(option, () -> this.removeFromCart(Integer.valueOf(itemId)));
-                }
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-
+        if (this.getItems().isEmpty()) {
+            out.println("CARRINHO VAZIO!");
         } else {
-            out.println("Nenhum item encontrado com o Código " + itemId + ".");
+            out.print("Digite o código do produto que deseja remover do carrinho: ");
+            var itemId = scanner.nextLine();
+            if(this.itemCartExist(Integer.parseInt(itemId))) {
+                Connect connect = new Connect();
+                String sql = "SELECT * FROM Product WHERE id = " + itemId;
+                ResultSet resultSet = connect.executeQuery(sql);
+                try{
+                    if (resultSet.next()) {
+                        int currentItemQuantity = getItemQuantity(Integer.parseInt(itemId));
+                        String productName = resultSet.getString("nameProduct");
+                        double productPrice = resultSet.getDouble("price");
+
+                        int option = -1;
+
+                        out.println("#############| REMOVER PRODUTO DO CARRINHO? |#############");
+                        out.println("#############################");
+                        out.println("Nome: " + productName);
+                        out.println("Preço: R$" + productPrice);
+                        out.println("Quantidade: " + currentItemQuantity);
+                        out.println("#############################");
+
+                        utils.confirmAction(option, () -> this.removeFromCart(Integer.valueOf(itemId)));
+                    }
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            } else {
+                out.println("Nenhum item encontrado com o Código " + itemId + ".");
+            }
         }
     }
 

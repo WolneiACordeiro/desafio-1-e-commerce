@@ -1,12 +1,0 @@
-
-o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(á¡ˆ™
-H
-java:S4925"-Remove this "Class.forName()", it is useless.(İˆùÿÿÿÿ
-D
-java:S2115")Add password protection to this database.(îÊ’”ùÿÿÿÿ
-H
-java:S49259"-Remove this "Class.forName()", it is useless.(İˆùÿÿÿÿ
-?
-java:S2115:")Add password protection to this database.(ı¸ÌÆ
-?
-java:S2115C")Add password protection to this database.(×¬ÿ¦
