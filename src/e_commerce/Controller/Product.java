@@ -2,7 +2,6 @@ package e_commerce.Controller;
 
 import e_commerce.Model.Connect;
 
-import javax.swing.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -28,6 +27,8 @@ public class Product {
         this.price = price;
         this.quantity = quantity;
     }
+    Scanner scanner = new Scanner(in);
+    Connect connect = new Connect();
     public int getId() {
         return id;
     }
@@ -63,7 +64,6 @@ public class Product {
     public void menuProduct () {
         int option;
         do {
-            Scanner scanner = new Scanner(in);
             out.println(" 1 - Cadastrar \n 2 - Alterar \n 3 - Remover \n 0 - Voltar");
             out.print("Selecione uma opção: ");
             option = Integer.parseInt(scanner.nextLine());
@@ -87,7 +87,6 @@ public class Product {
     }
 
     public boolean productExists(int id) {
-        Connect connect = new Connect();
         String sql = "SELECT COUNT(id) FROM Product WHERE id =" + id;
         ResultSet resultSet = connect.executeQuery(sql);
         boolean check = false;
@@ -106,13 +105,25 @@ public class Product {
         return check;
     }
     public void createProduct() {
-        Scanner scanner = new Scanner(in);
-        out.print("Insira o nome do produto: ");
-        var nameProduct = scanner.nextLine();
+
+        boolean validName = false;
+        String nameProduct = "";
+        while (!validName) {
+            out.print("Insira o nome do produto: ");
+            try {
+                nameProduct = scanner.nextLine();
+                if (nameProduct.trim().isEmpty()) {
+                    throw new IllegalArgumentException("O nome do produto não pode estar vazio. Por favor insira um nome válido. Exemplo(Mamão)");
+                } else {
+                    validName = true;
+                }
+            } catch (IllegalArgumentException ex) {
+                out.println(ex.getMessage());
+            }
+        }
 
         boolean validPrice = false;
         double priceProduct = 0.00;
-
         while (!validPrice) {
             out.print("Insira o preço do produto: ");
             try {
@@ -143,48 +154,27 @@ public class Product {
             }
         }
 
-        int option = -1;
-        do {
+            int option = -1;
+
             out.println("#############| CONFIRMAR REGISTRO DE PRODUTO? |#############");
             out.println("#############################");
             out.println("Nome: " + nameProduct);
             out.println("Preço: " + priceProduct);
             out.println("Quantidade: " + quantityProduct);
             out.println("#############################");
-            out.println(" 1 - SIM \n 2 - NÃO");
-            boolean validOption = false;
-                while (!validOption) {
-                    out.println("SELECIONE UMA OPÇÃO: ");
-                    try {
-                        option = Integer.parseInt(scanner.nextLine());
-                        if ((option != 1) && (option != 2)) {
-                            out.println("Escolha apenas entre a OPÇÃO (1 - SIM) e OPÇÃO (2 - NÃO)");
-                        } else {
-                            validOption = true;
-                        }
-                    } catch (NumberFormatException e) {
-                        out.println("A únicas opções são os valores numéricos inteiros: OPÇÃO (1 - SIM) e OPÇÃO (2 - NÃO)");
-                    }
-                }
-            switch (option) {
-                case 1 -> {
-                    this.registerProduct(nameProduct, priceProduct, quantityProduct);
-                }
-                case 2 -> {
-                    out.println("Retornar");
-                }
-                default -> out.println("Opção inválida");
-            }
-        } while ((option != 2) && (option != 1));
+
+            String finalNameProduct = nameProduct;
+            double finalPriceProduct = priceProduct;
+            int finalQuantityProduct = quantityProduct;
+
+        confirmAction(option, () -> registerProduct(finalNameProduct, finalPriceProduct, finalQuantityProduct));
 
     }
 
     public void alterProduct() {
-        Scanner scanner = new Scanner(in);
         out.print("Insira o código do produto: ");
         var itemId = scanner.nextLine();
         if (productExists(Integer.parseInt(itemId))) {
-            Connect connect = new Connect();
             String sql = "SELECT * FROM Product WHERE id = " + itemId;
             ResultSet resultSet = connect.executeQuery(sql);
 
@@ -196,7 +186,6 @@ public class Product {
 
                     boolean validName = false;
                     String nameProduct = "";
-
                     while (!validName) {
                         out.print("Insira o novo nome do produto [Nome Atual - " + productName +"]: ");
                         try {
@@ -213,7 +202,6 @@ public class Product {
 
                     boolean validPrice = false;
                     double priceProduct = productPrice;
-
                     while (!validPrice) {
                         out.print("Insira o novo preço do produto [Preço Atual - " + productPrice + "]: ");
                         try {
@@ -244,27 +232,19 @@ public class Product {
                         }
                     }
 
-                    int option;
-                    do {
+                        int option = -1;
+
                         out.println("#############| CONFIRMAR ATUALIZAÇÃO DE PRODUTO? |#############");
                         out.println("#############################");
                         out.println("Nome: " + nameProduct);
                         out.println("Preço: " + priceProduct);
                         out.println("Quantidade: " + quantityProduct);
                         out.println("#############################");
-                        out.println(" 1 - SIM \n 2 - NÃO");
-                        out.println("SELECIONE UMA OPÇÃO: ");
-                        option = Integer.parseInt(scanner.nextLine());
-                        switch (option) {
-                            case 1 -> {
-                                this.updateProduct(Integer.parseInt(itemId), nameProduct, priceProduct, quantityProduct);
-                            }
-                            case 2 -> {
-                                out.println("Retornar");
-                            }
-                            default -> out.println("Opção inválida");
-                        }
-                    } while ((option != 2) && (option != 1));
+
+                        String finalNameProduct = nameProduct;
+                        double finalPriceProduct = priceProduct;
+                        int finalQuantityProduct = quantityProduct;
+                        confirmAction(option, () -> this.updateProduct(Integer.valueOf(itemId), finalNameProduct, finalPriceProduct, finalQuantityProduct));
 
                 }
             } catch (SQLException ex) {
@@ -276,12 +256,34 @@ public class Product {
     }
 
     public void removeProduct() {
-        Scanner scanner = new Scanner(in);
         out.print("Insira o código do produto a ser removido: ");
         try {
             var itemId = scanner.nextLine();
             if (productExists(Integer.parseInt(itemId))) {
-                this.deleteProduct(Integer.parseInt(itemId));
+                String sql = "SELECT * FROM Product WHERE id = " + itemId;
+                ResultSet resultSet = connect.executeQuery(sql);
+
+                try{
+                    if (resultSet.next()) {
+                        int productQuantity = resultSet.getInt("quantity");
+                        String productName = resultSet.getString("nameProduct");
+                        double productPrice = resultSet.getDouble("price");
+
+                        int option = -1;
+
+                        out.println("#############| CONFIRMAR REMOÇÃO DE PRODUTO? |#############");
+                        out.println("#############################");
+                        out.println("Nome: " + productName);
+                        out.println("Preço: " + productPrice);
+                        out.println("Quantidade: " + productQuantity);
+                        out.println("#############################");
+
+                        confirmAction(option, () -> this.deleteProduct(Integer.valueOf(itemId)));
+                    }
+                } catch (SQLException ex) {
+                        ex.printStackTrace();
+                }
+
             } else {
                 out.println("Produto não encontrado.");
             }
@@ -304,14 +306,12 @@ public class Product {
     }
 
     public void findProduct() {
-        Scanner scanner = new Scanner(in);
         out.print("Digite o nome do produto que quer encontrar: ");
         var productName = scanner.nextLine();
         this.showProductsByName(productName);
     }
 
     public void registerProduct(String name, Double price, Integer quantity) {
-        Connect connect = new Connect();
         String sql = "INSERT INTO Product (nameProduct, price, quantity) VALUES (?, ?, ?)";
 
         try {
@@ -321,17 +321,18 @@ public class Product {
             preparedStatement.setInt(3, quantity);
 
             preparedStatement.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Produto cadastrado com Sucesso!");
+            System.out.println("PRODUTO CADASTRADO COM SUCESSO!");
+            out.println("#############################");
         } catch (SQLException ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar o produto: " + ex.getMessage());
+            System.out.println("ERRO AO CADASTRAR O PRODUTO: " + ex.getMessage());
+            out.println("#############################");
         } finally {
             connect.disconnect();
         }
     }
 
     public void updateProduct(Integer id, String name, Double price, Integer quantity) {
-        Connect connect = new Connect();
         String sql = "UPDATE Product SET nameProduct = ?, price = ?, quantity = ? WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connect.prepareStatement(sql);
@@ -341,10 +342,12 @@ public class Product {
             preparedStatement.setInt(4, id);
 
             preparedStatement.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Produto atualizado com Sucesso!");
+            System.out.println("PRODUTO ATUALIZADO COM SUCESSO!");
+            out.println("#############################");
         } catch (SQLException ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Erro ao atualizar o produto: " + ex.getMessage());
+            System.out.println("ERRO AO ATUALIZAR O PRODUTO: " + ex.getMessage());
+            out.println("#############################");
         } finally {
             connect.disconnect();
         }
@@ -352,15 +355,14 @@ public class Product {
 
 
     public void deleteProduct(Integer id) {
-        Connect connect = new Connect();
         String sql = "DELETE FROM Product WHERE id = " + id;
         connect.executeSQL(sql);
-        JOptionPane.showMessageDialog(null, "Deletado com Sucesso!");
+        out.println("PRODUTO DELETADO COM SUCESSO!");
+        out.println("#############################");
     }
 
     public List<Product> getProducts() {
         List<Product> productList = new ArrayList<>();
-        Connect connect = new Connect();
         String sql = "SELECT * FROM Product";
         ResultSet resultSet = connect.executeQuery(sql);
 
@@ -379,14 +381,20 @@ public class Product {
 
                 productList.add(product);
             }
+
+            if (productList.isEmpty()) {
+                out.println("Nenhum produto cadastrado.");
+            }
+
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro ao retornar os produtos: " + e.getMessage());
+            out.println("ERRO AO RETORNAR OS PRODUTOS: " + e.getMessage());
         } finally {
             connect.disconnect();
         }
 
         return productList;
     }
+
 
     public void showProductsByName(String productName) {
         List<Product> productList = this.getProducts();
@@ -407,6 +415,37 @@ public class Product {
         if (!productFound) {
             out.println("Nenhum produto encontrado com o nome contendo '" + productName + "'.");
         }
+    }
+
+    public void confirmAction(int option, Runnable method) {
+        do {
+            boolean validOption = false;
+            while (!validOption) {
+                out.println("SELECIONE UMA OPÇÃO: (1 - SIM) e OPÇÃO (2 - NÃO)");
+                try {
+                    option = Integer.parseInt(scanner.nextLine());
+                    if ((option != 1) && (option != 2)) {
+                        out.println("Escolha apenas entre a OPÇÃO (1 - SIM) e OPÇÃO (2 - NÃO)");
+                    } else {
+                        validOption = true;
+                    }
+                } catch (NumberFormatException e) {
+                    out.println("A únicas opções são os valores numéricos inteiros: OPÇÃO (1 - SIM) e OPÇÃO (2 - NÃO)");
+                }
+            }
+            switch (option) {
+                case 1:
+                    method.run();
+                    break;
+                case 2:
+                    out.println("RETORNAR");
+                    out.println("#############################");
+                    break;
+                default:
+                    out.println("Opção inválida");
+                    break;
+            }
+        } while ((option != 2) && (option != 1));
     }
 
 }

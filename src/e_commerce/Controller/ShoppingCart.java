@@ -50,7 +50,7 @@ public class ShoppingCart {
                             String stockName = resultSet.getString("nameProduct");
                             double stockPrice = resultSet.getDouble("price");
                             int currentItemQuantity = getItemQuantity(Integer.parseInt(itemId));
-                            out.print("Este item já se encontra em seu carrinho, insira quantas novas unidades deseja comprar:\n" + stockName + " | Preço(UN) R$" + stockPrice + "| Em estoque " + stockQuantity + "(UN) | No Carrinho " + currentItemQuantity + "(UN)\n");
+                            out.print("ESTE ITEM JÁ SE ENCONTRA NO SEU CARRINHO\nInsira quantas novas unidades deseja comprar (1) | Ou quantas deseja remover (-1):\n" + stockName + " | Preço(UN) R$" + stockPrice + "| Em estoque " + stockQuantity + "(UN) | No Carrinho " + currentItemQuantity + "(UN)\n");
                             this.checkQuantityOrder(Integer.parseInt(itemId), stockQuantity, itemExistenceInCart);
                         }
                     } catch (SQLException ex) {
@@ -96,7 +96,7 @@ public class ShoppingCart {
             } else if (itemQuantity > 0) {
                 this.updateItem(itemId, itemQuantity);
             } else {
-                out.print("Nenhum item foi adicionado ao carrinho (Digite uma quantidade numérica que seja maior que '0')");
+                out.print("A quantidade desse produto no carrinho precisa ser maior que '0')\n");
             }
         } catch (NumberFormatException e) {
             out.print("Por favor insira apenas quantidades numéricas.\n");

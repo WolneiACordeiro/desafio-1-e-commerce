@@ -13,11 +13,15 @@ public class Connect {
     private static final String URL = "jdbc:mysql://localhost/ecommerceCart";
     private static final String USER = "root";
     private static final String PASSWORD = "";
+    private static final String DATABASE_NAME = "ecommerceCart";
 
     private Connection connection;
     private Statement statement;
     private PreparedStatement preparedStatement;
 
+    public Connect() {
+        createDatabaseIfNotExists();
+    }
     public boolean connectDatabase() {
         boolean result = true;
 
@@ -45,6 +49,36 @@ public class Connect {
             connection.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Unable to close the database connection: " + ex);
+        }
+    }
+
+    public void createDatabaseIfNotExists() {
+        try {
+            Class.forName(DRIVER);
+            connection = DriverManager.getConnection("jdbc:mysql://localhost/", USER, PASSWORD);
+
+            String createDatabaseSql = "CREATE DATABASE IF NOT EXISTS " + DATABASE_NAME;
+            statement = connection.createStatement();
+            statement.executeUpdate(createDatabaseSql);
+
+            connection.close();
+
+            String urlWithDatabase = "jdbc:mysql://localhost/" + DATABASE_NAME;
+            connection = DriverManager.getConnection(urlWithDatabase, USER, PASSWORD);
+            statement = connection.createStatement();
+
+            String createProductTableSql = "CREATE TABLE IF NOT EXISTS Product " +
+                    "(id INT AUTO_INCREMENT, " +
+                    "nameProduct VARCHAR(150), " +
+                    "price DOUBLE, " +
+                    "quantity INT, " +
+                    "PRIMARY KEY(id))";
+            statement.executeUpdate(createProductTableSql);
+
+        } catch (ClassNotFoundException driverEx) {
+            JOptionPane.showMessageDialog(null, "Driver not found!: " + driverEx);
+        } catch (SQLException sqlEx) {
+            JOptionPane.showMessageDialog(null, "Error creating the database: " + sqlEx);
         }
     }
 

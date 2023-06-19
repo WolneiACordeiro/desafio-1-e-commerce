@@ -9,10 +9,11 @@ import static java.lang.System.*;
 
 public class Application {
     public static void main(String[] args) {
-        int option;
         Product product = new Product();
         ShoppingCart shoppingCart = new ShoppingCart();
         Order order = new Order();
+
+        int option;
 
         out.println(System.getProperty("java.version"));
 
@@ -50,7 +51,7 @@ public class Application {
                         out.println("#############| Gerenciar Produtos - Selecionado |#############");
                         product.menuProduct();
                     }
-                    case 0 -> out.println("Sair");
+                    case 0 -> out.println("SAIR");
                     default -> out.println("Opção inválida");
                 }
             } catch (NumberFormatException e) {
