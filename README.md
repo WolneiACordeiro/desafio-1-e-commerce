@@ -1,4 +1,4 @@
-### Sobre o projeto: :money_with_wings:
+### Sobre o projeto: :smiley:
 
 Um cliente muito importante nos solicitou a criação de um sistema de comércio eletrônico para sua empresa e que fosse apresentado inicialmente um MVP para que eles pudessem acompanhar o projeto em outros passos. Para isso, ele nos solicitou uma estrutura específica e que pudéssemos agir sobre ela e trazer bons resultados.
 
@@ -6,15 +6,15 @@ Desenvolva um sistema de carrinho de compras em Java utilizando MongoDB ou MySQL
 
 ### O sistema deve possuir as seguintes funcionalidades: :paperclip:
 
-**Gerenciamento de Produtos:**
+**Gerenciamento de Produtos:** :star:
 
 Cada produto deve ter um nome, preço e quantidade disponível em estoque. Os produtos devem ser armazenados no banco de dados. Deve ser possível adicionar, remover e atualizar produtos.
 
-**Carrinho de compras:** 
+**Carrinho de compras:** :star:
 
 O carrinho de compras deve armazenar os produtos selecionados pelo cliente, juntamente com a quantidade de cada produto. O valor total do carrinho de compras deve ser calculado com base nos produtos selecionados e suas quantidades.
 
-**Confirmação de Venda:**
+**Confirmação de Venda:** :star:
 
 Antes de confirmar a venda, o sistema deve solicitar uma confirmação do cliente. O cliente deve confirmar a compra antes que a venda seja concluída. Após a confirmação, o estoque dos produtos vendidos deve ser atualizado.
 
@@ -44,6 +44,20 @@ Antes de confirmar a venda, o sistema deve solicitar uma confirmação do client
 
 3. ###### XAMPP - https://www.apachefriends.org/download.html
 
+### Como inicializar: :mag_right:
+
+É necessário o uso de uma IDE (integrated development environment) para inicializar o código, recomendamos o uso da IDE - IntelliJ IDEA Community Edition 2023.1.2.
+
+Com o projeto aberto dentro da IDE, procure pelo arquivo principal Application localizado em:
+
+**src/View/Application**
+
+Abra o arquivo Application dois cliques sobre ele, o código fonte será exibido na IDE.
+
+Para inicializar este arquivo, você pode optar por inicializar procurando o botão que fica (geralmente) no parte superior direita da IDE, ou utilizando o comando rápido (Shift+F10), esse comando varia de acordo com a IDE.
+
+Se todo processo ocorrer com sucesso o seguinte MENU irá aparecer no terminal da sua IDE, rodando o projeto funcionalmente.
+
 ### Possíveis configurações necessárias: :bug:
 
 1. Para garantir que o XAMPP esteja funcionando corretamente, certifique-se de que tanto o serviço Apache quanto o serviço MySQL estejam ligados
@@ -63,8 +77,7 @@ Antes de confirmar a venda, o sistema deve solicitar uma confirmação do client
 ### Manifest: :newspaper:
 
 Manifest-Version: 1.0
+
 Main-Class: e_commerce.View.Application
+
 Created-By: 20.0.1 (Oracle Corporation)
-
-
-
