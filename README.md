@@ -48,15 +48,15 @@ Antes de confirmar a venda, o sistema deve solicitar uma confirmação do client
 
 1. Para garantir que o XAMPP esteja funcionando corretamente, certifique-se de que tanto o serviço Apache quanto o serviço MySQL estejam ligados
 
-![image-20230619005913747](C:\Users\wolne\AppData\Roaming\Typora\typora-user-images\image-20230619005913747.png)
+![image-20230619005913747](https://prnt.sc/KxLjfonOYLM0)
 
 2. Pode ser necessário configurar o conexão do código de acordo com suas credenciais configuradas em seu servidor MySQL, o arquivo de conexão está disponível dentro da pasta do projeto localizado em: **src/Model/Connect**
 
-![image-20230619010804120](C:\Users\wolne\AppData\Roaming\Typora\typora-user-images\image-20230619010804120.png)
+![image-20230619010804120](https://prnt.sc/KRUAiWCECAi5)
 
 3. Em caso de conflito verifique se o SDK do projeto está utilizando o openjdk-20
 
-![image-20230619012018780](C:\Users\wolne\AppData\Roaming\Typora\typora-user-images\image-20230619012018780.png)
+![image-20230619012018780](https://prnt.sc/iFv2P_2wRdmw)
 
 4. Certifique-se que não exista nenhum banco de dados (database) de nome **ecommerceCartWAC** cadastrado em seu servidor MySQL
 
